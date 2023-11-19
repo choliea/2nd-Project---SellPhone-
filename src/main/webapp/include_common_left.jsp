@@ -26,7 +26,7 @@ String sUserId = (String) session.getAttribute("sUserId");
 	%>
 	<li><a href="index.jsp">메인</a></li>
 	<li><a href="product_list.jsp">휴대폰★리스트</a></li>
-	<li><a href="cart_veiw.jsp">장바구니</a></li>
+	<li><a href="cart_veiw2.jsp">장바구니</a></li>
 	<li><a href="order_form.jsp">주문내역</a></li>
 	<%
 	}

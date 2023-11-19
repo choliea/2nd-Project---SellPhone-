@@ -40,7 +40,7 @@ function changeModel() {
 <!DOCTYPE html>
 <p>&nbsp;</p>
 <select id="selected_color"
-					onclick="changeModel();">
+					onchange="changeModel();">
 						<%
 						for (int i = 0; i < productList.size(); i++) {
 						%>

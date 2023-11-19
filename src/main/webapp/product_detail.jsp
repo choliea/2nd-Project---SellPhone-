@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+
 String productNoStr = request.getParameter("product_no");
 if (productNoStr == null || productNoStr.equals("")) {
 	response.sendRedirect("product_list.jsp");
@@ -38,6 +39,7 @@ List<Plan> planList = planService.findAllPlan();
 %>
 <!DOCTYPE html>
 <html>
+<link rel="icon" href="image/icons-phone.png"> 
 <script type="text/javascript">
 //스펙 상세보기
 function productDetailPopUp(product_no){
@@ -46,12 +48,19 @@ function productDetailPopUp(product_no){
    var pageUrl = "product_spec_detail.jsp?product_no=" + product_no;
    let idCheckWindow = window.open(pageUrl,"checkForm","width=600,height=600,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
 }
+//상품토론방
+function productDebatePopUp(product_no){
+   var left = Math.ceil(( window.screen.width)/5);
+   var top = Math.ceil(( window.screen.height)/5);
+   var pageUrl = "board_list.jsp?productNo=" + product_no;
+   let idCheckWindow = window.open(pageUrl,"checkForm","width=600,height=600,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
+}
 //스펙 비교하기
 function productComparePopUp(product_no){
    var left = Math.ceil(( window.screen.width)/5);
    var top = Math.ceil(( window.screen.height)/5);
    var pageUrl = "product_spec_compare.jsp?product_no=" + product_no;
-   let idCheckWindow = window.open(pageUrl,"checkForm","width=600,height=600,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
+   let idCheckWindow = window.open(pageUrl,"checkForm","width=1000,height=800,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
 }
 //색상 선택에 따른 이미지 변경
 function changeImage() {
@@ -67,10 +76,25 @@ function getPlan() {
     document.getElementById("selected_plan_order").value = selectedPlan;
 }
 
+function goToCart() {
+	directOrder.action = "cart_add_action.jsp";
+	directOrder.method='POST';
+	directOrder.submit();
+}
+
+function goToOrder() {
+	directOrder.action = "order_form.jsp";
+	directOrder.method='POST';
+	directOrder.submit();
+}
+
 
 </script>
 <head>
 <meta charset="UTF-8">
+<link rel=stylesheet href="css/styles.css" type="text/css">
+<link rel="icon" href="image/icons-phone.png"> 
+<style type="text/css" media="screen"></style>
 <title><%=product.getProductName()%> 상세정보</title>
 </head>
 <body>
@@ -82,13 +106,6 @@ function getPlan() {
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
-		<!-- navigation start-->
-		<div id="navigation">
-			<!-- include_common_left.jsp start-->
-			<jsp:include page="include_common_left.jsp" />
-			<!-- include_common_left.jsp end-->
-		</div>
-		<!-- navigation end-->
 		<!-- wrapper start -->
 		<div id="wrapper">
 			<!-- content start -->
@@ -96,27 +113,22 @@ function getPlan() {
 			<!-- include_content.jsp start-->
 			<div id="content">
 			
-			
-
-	<a href="product_list.jsp" title="리스트">제품 리스트</a>
+			<div align=right">
+	<a href="product_list.jsp" title="리스트" style="font-size: 20px">제품 리스트</a></div>
+	<% if(session.getAttribute("sUserId") != null && ((String)session.getAttribute("sUserId")).equals("admin")) {%>
 	<a href="product_delete_action.jsp" title="삭제">제품 삭제</a>
-	<a href="product_update_form.jsp" title="수정">제품 수정</a>
-	<form method="post" action="cart_add_action.jsp">
-		<input type="hidden" name="selected_color_input_cart" id="selected_color_input_cart" value="<%=product.getProductImage()%>">
-		<input type="hidden" name="selected_plan_cart" id="selected_plan_cart" value="<%=planList.get(0).getPlanNo()%>">
-		<button type="submit">카트 담기</button>
-	</form>
-	<form method="post" action="order_form.jsp">
-		<input type="hidden" name="selected_color_input_order" id="selected_color_input_order" value="<%=product.getProductImage()%>">
-		<input type="hidden" name="selected_plan_order" id="selected_plan_order" value="<%=planList.get(0).getPlanNo()%>">
-		<input type="hidden" name="buyType" id="buyType" value="fromProduct">
-		<button type="submit" onclick="changeImage()">바로 결제</button>
-	</form>
-	<a href="board_list.jsp?productNo=<%=product.getProductNo()%>">상품 토론방</a>
-	<a href="javascript:void(0);"
-		onclick="productDetailPopUp(<%=product.getProductNo()%>)">상품상세</a>
-	<a href="javascript:void(0);"
-		onclick="productComparePopUp(<%=product.getProductNo()%>)">상품 비교하기</a>
+	<a href="product_update_form.jsp?product_no=<%=product.getProductNo() %>" title="수정">제품 수정</a>
+	<% } %>
+	<form method="post" action="cart_add_action.jsp" style="display:inline">
+						<input type="hidden" name="selected_color_input_cart" id="selected_color_input_cart" value="<%=product.getProductImage()%>">
+						<input type="hidden" name="selected_plan_cart" id="selected_plan_cart" value="<%=planList.get(0).getPlanNo()%>">
+					</form>
+					<form id="directOrder" method="post" action="order_form.jsp" style="display:inline">
+						<input type="hidden" name="selected_color_input_order" id="selected_color_input_order" value="<%=product.getProductImage()%>">
+						<input type="hidden" name="selected_plan_order" id="selected_plan_order" value="<%=planList.get(0).getPlanNo()%>">
+						<input type="hidden" name="buyType" id="buyType" value="fromProduct">
+					</form>
+	
 	<form id="product_detail" name="product_detail" method="post">
 			
 		<table border="0" cellpadding="0" cellspacing="1" width="1300"
@@ -124,7 +136,7 @@ function getPlan() {
 			<tr>
 				<td rowspan="6" width=500 height=500 bgcolor="ffffff" 
 					style="padding-left: 10px" align="center"><img id="displayImage"
-					src='<%=product.getProductImage()%>' style="margin-bottom: 5px" width="500" height="500"><br />
+					src='<%=product.getProductImage()%>' style="margin-bottom: 5px" width="320" height="300"><br />
 				</td>
 			<tr>
 				<td width=200 align=center bgcolor="E6ECDE" height="22">제품명</td>
@@ -170,6 +182,21 @@ function getPlan() {
 						%>
 				</select></td>
 			</tr>
+			<tr>
+			<td width=200 bgcolor="ffffff" height="55px" style="padding-left: 10px" align="center">
+				<a href="javascript:void(0);" onclick="productDebatePopUp(<%=product.getProductNo()%>)" style="font-size: 15px; font-weight: bold;">상품 토론방</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:void(0);" onclick="productDetailPopUp(<%=product.getProductNo()%>)" style="font-size: 15px; font-weight: bold;" >상품상세</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:void(0);" onclick="productComparePopUp(<%=product.getProductNo()%>)" style="font-size: 15px; font-weight: bold;">상품 비교하기</a>
+				</td>
+			
+				<td colspan="2" width=200 bgcolor="ffffff" height="55px" style="padding-left: 10px" align="center">
+						<button type="button" onclick="goToCart()" value="카트 담기">카트 담기</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" onclick="goToOrder()" value="바로 결제">바로 결제</button>
+			</tr>
+				
 			<tr>
 				<td colspan="3" width=490 bgcolor="ffffff" height="180px"
 					style="padding-left: 10px" align="center"><img

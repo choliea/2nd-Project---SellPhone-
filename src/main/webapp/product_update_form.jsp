@@ -25,16 +25,16 @@ function productUpdate(){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>휴대폰</title>
+<title>휴대폰 정보 수정</title>
+<link rel=stylesheet href="css/styles.css" type="text/css">
+<link rel=stylesheet href="css/user.css" type="text/css">
+<link rel="icon" href="image/icons-phone.png">
 </head>
 <body bgcolor=#FFFFFF text=#000000 leftmargin=0 topmargin=0
 	marginwidth=0 marginheight=0>
 	<div id="container">
 		<div id="header">
 			<jsp:include page="include_common_top.jsp" />
-		</div>
-		<div id="navigation">
-			<jsp:include page="include_common_left.jsp" />
 		</div>
 		<div id="wrapper">
 			<div id="content">

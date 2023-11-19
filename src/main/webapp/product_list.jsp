@@ -24,41 +24,22 @@ if(order == null || order.equals("")) {
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel=stylesheet href="css/styles.css" type="text/css">
+<link rel="icon" href="image/icons-phone.png"> 
 <title>휴대폰 리스트</title>
 </head>
 <body>
 <div id="container">
-		<!-- header start -->
 		<div id="header">
-			<!-- include_common_top.jsp start-->
 			<jsp:include page="include_common_top.jsp" />
-			<!-- include_common_top.jsp end-->
 		</div>
-		<!-- header end -->
-		<!-- navigation start-->
-		<div id="navigation">
-			<!-- include_common_left.jsp start-->
-			<jsp:include page="include_common_left.jsp" />
-			<!-- include_common_left.jsp end-->
-		</div>
-		<!-- navigation end-->
-		<!-- wrapper start -->
 		<div id="wrapper">
-			<!-- content start -->
-
-			<!-- include_content.jsp start-->
 			<div id="content">
 
 
 	<table border=0 cellpadding=0 cellspacing=0>
 		<tr>
 			<td><br />
-				<table style="padding-left: 10px" border=0 cellpadding=0 cellspacing=0>
-					<tr>
-						<td bgcolor="f4f4f4" height="22">&nbsp;&nbsp;<b>쇼핑몰 -
-								상품리스트</b></td>
-					</tr>
-				</table>
 				<a href="product_list.jsp">추천순</a>
 				<a href="product_list.jsp?order=desc">가격 높은 순</a>
 				<a href="product_list.jsp?order=asc">가격 낮은 순</a>
@@ -85,7 +66,7 @@ if(order == null || order.equals("")) {
 							%>
 							<td align="center" width="25%" bgcolor="ffffff"><a
 								href="product_detail.jsp?product_no=<%=product.getProductNo()%>">
-								<img width="300px" height="220px"
+								<img width="250px" height="180px"
 									src="<%=product.getProductImage()%>" border="0"></a><br />
 								<br /> <b><%=product.getProductName()%></b>
 								<br> <font color="#FF0000">가격:<%=new DecimalFormat("#,##0").format(product.getProductPrice())%>원
@@ -109,15 +90,10 @@ if(order == null || order.equals("")) {
 
 
 
-</div>
-			<!-- include_content.jsp end-->
-			<!-- content end -->
 		</div>
-		<!--wrapper end-->
+		</div>
 		<div id="footer">
-			<!-- include_common_bottom.jsp start-->
 			<jsp:include page="include_common_bottom.jsp" />
-			<!-- include_common_bottom.jsp end-->
 		</div>
 	</div>
 	<!--container end-->

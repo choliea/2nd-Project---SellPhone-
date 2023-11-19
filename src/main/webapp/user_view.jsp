@@ -14,7 +14,6 @@
 <title>내정보</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel=stylesheet href="css/styles.css" type="text/css">
-<link rel=stylesheet href="css/shop.css" type="text/css">
 <link rel=stylesheet href="css/user.css" type="text/css">
 <link rel="icon" href="image/icons-phone.png">
 <script type="text/javascript">
@@ -51,13 +50,6 @@
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
-		<!-- navigation start-->
-		<div id="navigation">
-			<!-- include_common_left.jsp start-->
-			<jsp:include page="include_common_left.jsp"/>
-			<!-- include_common_left.jsp end-->
-		</div>
-		<!-- navigation end-->
 		<!-- wrapper start -->
 		<div id="wrapper">
 			<!-- content start -->

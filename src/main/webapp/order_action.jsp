@@ -30,11 +30,11 @@ if (paymentStr != null && paymentStr.equals("카드")) {
 } else if (paymentStr != null && paymentStr.equals("계좌이체")) {
 	cardAccountNo = (String)session.getAttribute("payNo");
 } else {
-	response.sendRedirect("index.jsp");
+	response.sendRedirect("shop_main.jsp");
 	return;
 }
 Order order = (Order) session.getAttribute("order");
-List<Integer> cartNoList =(List<Integer>)session.getAttribute("cartNoList");
+String[] cartNoList =(String[])session.getAttribute("cartNoList");
 Payment payment = new Payment(0, paymentStr, new Date(), cardAccountNo, new Order(1));
 /* int paymentNo = paymentServcie.insertPayment(new Payment(0, payment, new Date(), cardAccountNo, new Order(1)));
 Payment findPayment = paymentServcie.findPaymentByPaymentNo(paymentNo);

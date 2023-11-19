@@ -1,4 +1,4 @@
-<%@page import="java.text.DecimalFormat"%>
+<%-- <%@page import="java.text.DecimalFormat"%>
 <%@page import="com.itwill.shop.product.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="com.itwill.shop.product.ProductService"%>
@@ -18,7 +18,6 @@ if(order==null||order.equals("")){
 }
 
 String pageNostr =request.getParameter("page");
-List<
 %>
 <!DOCTYPE html>
 <html>
@@ -76,4 +75,4 @@ List<
             </td>
         </tr>
     </table>
-</body>
+</body> --%>

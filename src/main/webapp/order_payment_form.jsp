@@ -21,6 +21,7 @@
 	response.sendRedirect("index.jsp");
 	return;
 } 
+String buyType = request.getParameter("buyType");
 String delivery = request.getParameter("delivery");
 String deliveryReq = request.getParameter("deliveryReq");
 String deliveryReceiver = request.getParameter("deliveryReceiver");
@@ -51,12 +52,12 @@ session.setAttribute("order", order);
 function openCardCheck(){
 	var left = Math.ceil(( window.screen.width)/5);
 	var top = Math.ceil(( window.screen.height)/5); 
-	let idCheckWindow = window.open("card_check_form2.jsp","checkForm","width=990,height=230,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
+	let idCheckWindow = window.open("card_check_form.jsp","checkForm","width=990,height=230,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
 }
 function openAccountCheck(){
 	var left = Math.ceil(( window.screen.width)/5);
 	var top = Math.ceil(( window.screen.height)/5); 
-	let idCheckWindow = window.open("account_check_form2.jsp","checkForm","width=430,height=200,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
+	let idCheckWindow = window.open("account_check_form.jsp","checkForm","width=430,height=200,top="+top+",left="+left+",resizable = no,location=no, directories=no, status=no, menubar=no, scrollbars=no,copyhistory=no");
 }
 function uncheckAccount(){
 	document.getElementById("accountCk").checked=false;
@@ -72,6 +73,13 @@ function whichPayment(){
 		openAccountCheck();
 	}
 }
+function cancelO(){
+	if(document.getElementById('buyType').value=='fromCart'){
+		location.href='cart_view.jsp';
+	}else{
+		location.href='product_detail.jsp?product_no=<%=orderItems.get(0).getProduct().getProductNo()%>';
+	}
+}
 </script>
 </head>
 <body>
@@ -82,7 +90,9 @@ function whichPayment(){
 	카드<input type="checkbox" name="payment" value="카드" id="cardCk"onchange="uncheckAccount();">
 	계좌이체<input type="checkbox" name="payment" value="계좌이체" id="accountCk"onchange="uncheckCard();">
 	<input type="button" name="pay" onclick="whichPayment();" value="결제하기">
+	<input type="button" name="cancel" onclick="cancelO();" value="취소">
 	<input type="hidden" name="cardAccountNo" id="cardAccountNo"  value="">
+	<input type="hidden" name="buyType" id="buyType"  value="buyType">
 	</form>
 	</div>
 	<jsp:include page="include_common_bottom.jsp"></jsp:include>

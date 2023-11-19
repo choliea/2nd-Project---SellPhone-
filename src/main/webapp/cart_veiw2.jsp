@@ -26,7 +26,6 @@ List<Plan> planList = planService.findAllPlan();
 <title>장바구니</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel=stylesheet href="css/styles.css" type="text/css">
-<link rel=stylesheet href="css/shop.css" type="text/css">
 <link rel="icon" href="image/icons-phone.png"> 
 <style type="text/css" media="screen">
 </style>
@@ -49,17 +48,14 @@ List<Plan> planList = planService.findAllPlan();
 	 */
 	 
 	  function cart_view_form_select_order_submit(){
+		  document.cart_view_form.innerHTML='<input type="hidden" name="buyType" value="fromCart">';
 		  var cart_item_no_check_list = document.getElementsByName("cart_item_no_check");
-		  
-		  for(var i=0;cart_item_no_check_list.length;i++){
-			  if(cart_item_no_check_list.item(i).checked===true){
-				 
-				  
+	 	 for(var i=0;i<cart_item_no_check_list.length;i++){
+			  if(cart_item_no_check_list[i].checked==true){
 				  document.cart_view_form.innerHTML+=
 					  "<input type='hidden' name='cartNoList' value='"+cart_item_no_check_list.item(i).value+"'>";
-					  
 			  }
-		  }
+		  } 
 		  
 		  document.cart_view_form.method='POST';
 			document.cart_view_form.action='order_form.jsp';
@@ -75,18 +71,17 @@ List<Plan> planList = planService.findAllPlan();
 		}
 	//전체 체크 여부
 	function cart_item_select_all(){
-		
 		var cart_item_no_check_list = document.getElementsByName("cart_item_no_check");
 		var cart_item_check_selected_count = 0;
 		var count=0;
 		if(document.getElementById("all").checked==true){ 
-	         for(var i=0;cart_item_no_check_list.length;i++){
+	         for(var i=0;i<cart_item_no_check_list.length;i++){
 	        	 cart_item_no_check_list.item(i).checked =true;  
 		document.getElementById('cart_item_select_count').innerHTML = cart_item_no_check_list.length;
 	         }
 	      }
 		else if(document.getElementById("all").checked==false){
-			for(var i=0;cart_item_no_check_list.length;i++){
+			for(var i=0;i<cart_item_no_check_list.length;i++){
 				cart_item_no_check_list.item(i).checked =false;  
 		document.getElementById('cart_item_select_count').innerHTML = 0;
 	        	 
@@ -99,6 +94,7 @@ List<Plan> planList = planService.findAllPlan();
 	
 	//체크박스 수로count
 	function cart_item_select_count(){
+		console.log(1);
 		var cart_item_no_check_list = document.getElementsByName("cart_item_no_check");
 		var cart_item_check_selected_count = 0;
 		for (var i = 0; i < cart_item_no_check_list.length; i++) {
@@ -127,14 +123,7 @@ List<Plan> planList = planService.findAllPlan();
 			<!-- include_common_top.jsp end-->
 		</div>
 		<!-- header end -->
-		<!-- navigation start-->
-		<div id="navigation">
-			<!-- include_common_left.jsp start-->
-			<jsp:include page="include_common_left.jsp" />
-			<!-- include_common_left.jsp end-->
-		</div>
-		<!-- navigation end-->
-		<!-- wrapper start -->
+			<!-- wrapper start -->
 		<div id="wrapper">
 			<!-- content start -->
 
@@ -191,6 +180,11 @@ List<Plan> planList = planService.findAllPlan();
 									<!-- cart item start -->
 									<%
 									for (Cart cart : cartList) {
+										double plan1=(cart.getPlan().getPlanDc()*0.01);
+										double product1=plan1*cart.getProduct().getProductPrice();
+										int product= (int)cart.getProduct().getProductPrice()-(int)product1;
+										int tot_price=(int)product/24;
+										int monthly=(int)tot_price+(int)cart.getPlan().getPlanFare();
 									%>
 									<tr>
 									<td width=60 height=26 align=center bgcolor="ffffff" class=t1>
@@ -224,7 +218,7 @@ List<Plan> planList = planService.findAllPlan();
 										</td>
 										
 
-										<td width=112 height=26 align=center bgcolor="ffffff" class=t1><%=new DecimalFormat("\u00A4 #,###").format(cart.getPlan().getPlanFare()+ ((cart.getProduct().getProductPrice()) - ((cart.getPlan().getPlanDc()) * 0.01)) / 24)%><br>
+										<td width=112 height=26 align=center bgcolor="ffffff" class=t1><%=new DecimalFormat("\u00A4 #,###").format(monthly)%><br>
     <a href="javascript:cartPlanViewPopUp('<%= cart.getCartNo() %>')"><font color="#00a2be">[상세조회]</font></a>
 </td>
 										<td width=50 height=25 align=center bgcolor="ffffff" class=t1>

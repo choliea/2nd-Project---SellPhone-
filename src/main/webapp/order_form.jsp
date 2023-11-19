@@ -1,3 +1,4 @@
+<%@page import="com.itwill.shop.user.UserService"%>
 <%@page import="com.itwill.shop.user.User"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.itwill.shop.order.OrderItem"%>
@@ -25,7 +26,8 @@ String buyType = request.getParameter("buyType");
 Product product = new Product();
 Plan plan = new Plan();
 List<Cart> cartList = new ArrayList<Cart>();
-List<Integer> cartNoList = new ArrayList<Integer>();
+
+String[] cartNoList={};
 List<OrderItem> orderItems = new ArrayList<OrderItem>();
 int[] contacts={};
 
@@ -41,20 +43,10 @@ if (buyType.equals("fromProduct")) {
 	orderItems.add(orderItem);
 	cartList.add(cart);
 } else if (buyType.equals("fromCart")) {
-	cartList=cartService.getCartByUserId(sUserId);
-	/*String[] cartNoList = request.getParameterValues("cartNoList");
+	cartNoList = request.getParameterValues("cartNoList");
 	for (String cartNo : cartNoList) {
 		Cart cart = cartService.getCartByCartId(Integer.parseInt(cartNo));
 		cartList.add(cart);
-		plan = cart.getPlan();
-		plan = planService.findPlanByNo(plan.getPlanNo());
-		product = cart.getProduct();
-		product = productService.productDetail(product.getProductNo());
-		OrderItem orderItem = new OrderItem(0, 0, plan, product, null);
-		orderItems.add(orderItem);
-	} */
-	for(Cart cart:cartList){
-		cartNoList.add(cart.getCartNo());
 		plan = cart.getPlan();
 		plan = planService.findPlanByNo(plan.getPlanNo());
 		product = cart.getProduct();
@@ -105,7 +97,7 @@ session.setAttribute("cartNoList",cartNoList);
 		var top = Math.ceil((window.screen.height) / 5);
 		let idCheckWindow = window
 				.open(
-						"card_check_form2.jsp",
+						"card_check_form.jsp",
 						"checkForm",
 						"width=990,height=230,top="
 								+ top
@@ -118,7 +110,7 @@ session.setAttribute("cartNoList",cartNoList);
 		var top = Math.ceil((window.screen.height) / 5);
 		let idCheckWindow = window
 				.open(
-						"account_check_form2.jsp",
+						"account_check_form.jsp",
 						"checkForm",
 						"width=430,height=200,top="
 								+ top
@@ -140,6 +132,17 @@ session.setAttribute("cartNoList",cartNoList);
 		} else {
 			openAccountCheck();
 		}
+	}
+	function order(){
+		if(document.getElementsByName('delivery')[0].value==""){
+			alert('배송지를 입력하세요');
+			document.getElementsByName('delivery')[0].focus();
+			return false;
+		}
+		document.getElementById('order').action='order_payment_form.jsp';
+		document.getElementById('order').method='POST';
+		document.getElementById('order').submit();
+		
 	}
 </script>
 <head>
@@ -172,8 +175,8 @@ session.setAttribute("cartNoList",cartNoList);
 			for (int i = 0; i < cartList.size(); i++) {
 				int plan_price = cartList.get(i).getPlan().getPlanFare();
 				int origin_price = (int) (cartList.get(i).getProduct().getProductPrice());
-				int product_price = (int) (cartList.get(i).getProduct().getProductPrice() * ((100 - plan.getPlanDc()) / 10000))
-				* 100;
+				int product_price = (int) (cartList.get(i).getProduct().getProductPrice() * ((100 - plan.getPlanDc()) / 100))
+				;
 				int sale = origin_price - product_price;
 				String msg = "";
 				msg=sale+"/12="+(sale/12);
@@ -228,16 +231,17 @@ session.setAttribute("cartNoList",cartNoList);
 			</tr>
 			<tr>
 				<td>배송 요청사항</td>
-				<td><input type="text" name="deliveryReq" style="width: 350px"></td>
+				<td><input type="text" name="deliveryReq" value="" style="width: 350px"></td>
 			</tr>
 			<tr>
 				<td>수령인</td>
-				<td><input type="text" name="deliveryReceiver" style="width: 350px"></td>
+				<td><input type="text" name="deliveryReceiver" value="<%=new UserService().findById(sUserId).getUserName() %>" style="width: 350px"></td>
 			</tr>
 		</table>
 				<input type="hidden" name="input_tot_monthly" id="input_tot_monthly" value="<%=tot_monthly%>">
+				<input type="hidden" name="buyType" id="buyType" value="<%=buyType%>">
 		<div align="center" style="padding: 10px">
-			<button type="submit">확인</button>
+			<button type="button" onclick="order();">확인</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="button" onclick="history.back();">취소</button>
 		</div>

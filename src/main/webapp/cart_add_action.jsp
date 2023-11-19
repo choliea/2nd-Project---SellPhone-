@@ -11,13 +11,13 @@
     pageEncoding="UTF-8"%>
     <%@ include file="login_check.jspf" %>
  <%
-String product_noStr = request.getParameter("selected_color_input_cart");
+String product_noStr = request.getParameter("selected_color_input_order");
 ProductService productService = new ProductService();
 Product product = productService.productDetailByImage(product_noStr);
 
 
  
- String plan_noStr= request.getParameter("selected_plan_cart");
+ String plan_noStr= request.getParameter("selected_plan_order");
 //System.out.println(product_noStr);
 //int product_no = Integer.parseInt(product_noStr);
 int plan_no = Integer.parseInt(plan_noStr);
@@ -25,8 +25,8 @@ PlanService planService = new PlanService();
 Plan plan =planService.findPlanByNo(plan_no);
  CartService cartService = new CartService();
 cartService.addCart(new Cart(0,sUserId,plan,product));
-String referer=request.getHeader("referer");
-response.sendRedirect(referer);
+
+response.sendRedirect("cart_veiw2.jsp");
  
  
  
