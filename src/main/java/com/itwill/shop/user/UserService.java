@@ -70,4 +70,7 @@ public class UserService {
 		return userDao.delete(userId);
 	}
 	
+	public User findByName(String name) throws Exception{
+		return userDao.findById(name);
+	}
 }

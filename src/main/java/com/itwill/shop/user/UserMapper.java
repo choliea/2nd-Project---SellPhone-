@@ -19,7 +19,7 @@ public interface UserMapper {
 	@Delete("delete userinfo where user_id=#{userId}")
 	public int delete(String userId) throws Exception;
 
-	@Select("select select user_id,user_password,user_name,user_email,user_email_send,user_jumin,user_phone,user_gender from userinfo")
+	@Select("select user_id,user_password,user_name,user_email,user_email_send,user_jumin,user_phone,user_gender from userinfo")
 	public List<User> findAll() throws Exception;
 	
 	@Select("select * from userinfo where user_id=#{userId}")
@@ -27,5 +27,8 @@ public interface UserMapper {
 	
 	@Select("select count(*) cnt from userinfo where user_id=#{userId}")
 	int countById(String userId) throws Exception;
+	
+	@Select("select * from userinfo where user_id=#{userName}")
+	public User findByName(String name) throws Exception;
 
 }

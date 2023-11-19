@@ -25,7 +25,8 @@ public interface OrderItemMapper {
 	@Delete("delete order_item where oi_no=#{orderNo}")
 	public int deleteOrderItem(int orderNo) throws Exception;
 
-	@Select("select * from order_item where order_no=${orderNo}")
+	@ResultMap("oiMapper")
+	@Select("select * from order_item where order_no=#{orderNo}")
 	public List<OrderItem> findOrderItemsByOrder(int orderNo) throws Exception;
 
 	

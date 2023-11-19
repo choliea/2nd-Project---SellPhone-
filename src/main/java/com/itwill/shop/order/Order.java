@@ -10,22 +10,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 
-
 public class Order {
 	private int orderNo;
 	private int orderFee;
 	private Date orderDate;
-	private String delivery;//배송주소
-	private String deliveryReq;//배송 요청사항
-	private String deliveryStatus;//배송상태
-	private String deliveryReceiver;//수령인
-	private User user;//주문자 정보
-	private Payment payment;//결제 정보
-	private List<OrderItem> orderItems;//주문할 아이템들
+	private String delivery;// 배송주소
+	private String deliveryReq;// 배송 요청사항
+	private String deliveryStatus;// 배송상태
+	private String deliveryReceiver;// 수령인
+	private User user;// 주문자 정보
+	private Payment payment;// 결제 정보
+	private List<OrderItem> orderItems;// 주문할 아이템들
+
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public Order(int orderNo, int orderFee, Date orderDate, String delivery, String deliveryReq, String deliveryStatus,
 			String deliveryReceiver, User user, Payment payment, List<OrderItem> orderItems) {
 		super();
@@ -40,7 +40,6 @@ public class Order {
 		this.payment = payment;
 		this.orderItems = orderItems;
 	}
-	
 
 	public Order(int orderNo) {
 		super();
@@ -110,12 +109,7 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
 
-	  
-
-	
 	public Payment getPayment() {
 		return payment;
 	}
@@ -139,5 +133,5 @@ public class Order {
 				+ ", deliveryReceiver=" + deliveryReceiver + ", user=" + user + ", payment=" + payment + ", orderItems="
 				+ orderItems + "]";
 	}
-		
+
 }

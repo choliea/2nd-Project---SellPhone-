@@ -1,7 +1,7 @@
 package com.itwill.shop.product;
 
 
-public class Product { 
+public class Product {
 	private int productNo;
 	private String productName;
 	private String productModel;

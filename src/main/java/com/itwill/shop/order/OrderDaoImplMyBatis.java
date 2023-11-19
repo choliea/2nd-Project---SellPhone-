@@ -19,6 +19,15 @@ public class OrderDaoImplMyBatis implements OrderDao {
 		sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));
 	}
 
+	@Override
+
+	public List<Order> findOrdersByDeliveryReceiver(String deliveryReceiver) throws Exception {
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+		List<Order> orderList = orderMapper.findOrdersByDeliveryReceiver(deliveryReceiver);
+		sqlSession.close();
+		return orderList;
+	}
 
 	@Override
 	public int updateOrder(Order order) throws Exception {
@@ -27,7 +36,7 @@ public class OrderDaoImplMyBatis implements OrderDao {
 		int rowCount = orderMapper.updateOrder(order);
 		sqlSession.close();
 		return rowCount;
-		
+
 	}
 
 	@Override
@@ -38,22 +47,23 @@ public class OrderDaoImplMyBatis implements OrderDao {
 		sqlSession.close();
 		return rowCount;
 	}
+
 	@Override
-	public int insertOrder(Order order,Payment payment) throws Exception {
+	public int insertOrder(Order order, Payment payment) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(false);
 		try {
-		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		OrderItemMapper oiMapper = sqlSession.getMapper(OrderItemMapper.class);
-		int paymentNo =orderMapper.insertPayment(payment);
-		order.setPayment(payment);
-		orderMapper.insertOrder(order);
-		int orderNo = order.getOrderNo();
-		List<OrderItem> oiList=order.getOrderItems();
-		for(int i=0; i<oiList.size();i++) {
-			oiList.get(i).setOrder(order);
-			oiMapper.insertOrderItem(oiList.get(i));
-		}
-		}catch(Exception e) {
+			OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
+			OrderItemMapper oiMapper = sqlSession.getMapper(OrderItemMapper.class);
+			int paymentNo = orderMapper.insertPayment(payment);
+			order.setPayment(payment);
+			orderMapper.insertOrder(order);
+			int orderNo = order.getOrderNo();
+			List<OrderItem> oiList = order.getOrderItems();
+			for (int i = 0; i < oiList.size(); i++) {
+				oiList.get(i).setOrder(order);
+				oiMapper.insertOrderItem(oiList.get(i));
+			}
+		} catch (Exception e) {
 			sqlSession.rollback();
 			sqlSession.close();
 			return 0;
@@ -71,14 +81,16 @@ public class OrderDaoImplMyBatis implements OrderDao {
 		sqlSession.close();
 		return rowCount;
 	}
+
 	@Override
 	public int insertPayment(Payment payment) throws Exception {
-		SqlSession sqlSession=sqlSessionFactory.openSession(false);
-		OrderMapper paymentMapper =sqlSession.getMapper(OrderMapper.class);
+		SqlSession sqlSession = sqlSessionFactory.openSession(false);
+		OrderMapper paymentMapper = sqlSession.getMapper(OrderMapper.class);
 		paymentMapper.insertPayment(payment);
 		sqlSession.close();
 		return payment.getPaymentNo();
 	}
+
 	@Override
 	public int updateOrderItem(OrderItem orderItem) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
@@ -118,7 +130,7 @@ public class OrderDaoImplMyBatis implements OrderDao {
 	public List<Order> findOrdersByDate(Date startDate, Date endDate) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		OrderMapper orderMapper = sqlSession.getMapper(OrderMapper.class);
-		List<Order> orders = orderMapper.findOrdersByDate(startDate,endDate);
+		List<Order> orders = orderMapper.findOrdersByDate(startDate, endDate);
 		return orders;
 	}
 
@@ -156,11 +168,13 @@ public class OrderDaoImplMyBatis implements OrderDao {
 		sqlSession.close();
 		return orderitemList;
 	}
+
 	public void commit() {
-		SqlSession sqlSession=sqlSessionFactory.openSession(true);
+		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.commit();
 		sqlSession.close();
 	}
+
 	public void rollback() {
 		SqlSession sqlSession = sqlSessionFactory.openSession(true);
 		sqlSession.rollback();

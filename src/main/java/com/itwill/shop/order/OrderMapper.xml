@@ -4,7 +4,11 @@
 	<resultMap type="com.itwill.shop.order.Order"
 		id="orderMapper" autoMapping="true">
 		<id column="order_no" property="orderNo" />
-			<result column="user_id" property="user.userId" />
+		<association property="user" autoMapping="true"
+			javaType="com.itwill.shop.user.User">
+			<id column="user_id" property="userId" />
+		</association>
+
 		<association property="payment" autoMapping="true"
 			javaType="com.itwill.shop.order.pay.Payment">
 			<id column="payment_no" property="paymentNo" />
