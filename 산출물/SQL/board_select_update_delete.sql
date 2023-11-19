@@ -28,5 +28,4 @@ select board_no, board_title, board_content, board_date, user_id, board_readcoun
                                         on b.product_no = p.product_no
                                         order by board_groupno desc, board_step asc
                                 ) sorted_board
-                ) rownum_board
-where product_no = 3;
+                ) rownum_board;
