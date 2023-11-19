@@ -8,7 +8,7 @@
 <div align="center">
 
 | **박서진** | **윤호진** | **이현승** | **최유강** | **우수미** | **이서림** |
-| :------: |  :------: | :------: | :------: |
+
 | [@seo0ojin](https://github.com/seo0ojin) | [@hojin188](https://github.com/hojin188) | [@Roco-LEE](https://github.com/Roco-LEE) | [@choliea](https://github.com/choliea) | [@woosoomi](https://github.com/woosoomi) | [@yskr7171](https://github.com/yskr7171) |
 
 
