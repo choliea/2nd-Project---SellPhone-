@@ -1,7 +1,7 @@
 # 2nd mini Project SellPhone By Team4
 
 프로젝트 
-
+총 8일 (2023.08.18. ~ 2023.08.25.)
 
 #Contributors
 
