@@ -40,9 +40,9 @@
 
 주문 내역 확인 페이지
 
-<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/eba9fb65-1e21-443c-986d-6926146987c5">
+<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/eba9fb65-1e21-443c-986d-6926146987c5" style="height=50px; width=50px">
 
-<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/b3b61faa-0f09-4a34-bc8d-f4cad174838e">
+<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/b3b61faa-0f09-4a34-bc8d-f4cad174838e" style="height=50px; width=50px">
 
 
 
