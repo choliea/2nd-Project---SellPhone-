@@ -33,9 +33,6 @@
 
 주문, 결제(가상 계좌, 카드사) 서비스
 
-
-![스크린샷 2023-11-26 234525](https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/45ebd048-ca5a-4788-ab01-6bad12e6fb56)
-
 ![주문동적변경](https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/bf609c6e-df89-4d1b-bd57-a5fe51916579)
 
 ![주문시연](https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/059196b2-540f-4e57-ba37-75d24ab19acb)
@@ -43,12 +40,10 @@
 
 주문 내역 확인 페이지
 
-
-![스크린샷 2023-11-26 234335](https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/b3b61faa-0f09-4a34-bc8d-f4cad174838e)
-![스크린샷 2023-11-26 234227](https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/eba9fb65-1e21-443c-986d-6926146987c5)
+<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/eba9fb65-1e21-443c-986d-6926146987c5">
 
 <img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/b3b61faa-0f09-4a34-bc8d-f4cad174838e">
-<img src="https://github.com/choliea/2nd-Project---SellPhone-/assets/133833132/eba9fb65-1e21-443c-986d-6926146987c5">
+
 
 
 ERD 
